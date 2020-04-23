@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "42bda274-89c9-41aa-8098-b6e85f8958f3",
+		"name": "ThePickyBankPostmanTesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3000/account/0113973313",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4141c994-5bcc-4051-b41b-f97930090db1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"balance\");",
+							"    pm.expect(pm.response.text()).to.include(\"number\");",
+							"    pm.expect(pm.response.text()).to.include(\"movements\");",
+							"    pm.expect(pm.response.text()).to.include(\"accountNumber\");",
+							"    pm.expect(pm.response.text()).to.include(\"amount\");",
+							"    pm.expect(pm.response.text()).to.include(\"time\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/account/0113973313",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"account",
+						"0113973313"
+					]
+				},
+				"description": "Get account from cpr-number"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/account/0113973314",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc5e9dc2-12ba-483a-8c06-1e3b55e9d6f1",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Customer does not exist\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/account/0113973314",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"account",
+						"0113973314"
+					]
+				},
+				"description": "Get account from cpr-number - fails"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/transfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f4394ec1-795d-4dcf-a7cc-e2d90f13100c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"true\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sourceNumber\": \"02429583\",\n\t\"targetNumber\": \"02429523\",\n\t\"amount\": 23.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/transfer",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transfer"
+					]
+				},
+				"description": "Transfer money"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/transfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59a4e090-cdc9-480e-9c68-e1e421ea669f",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Couldn't find target account!\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sourceNumber\": \"02429583\",\n\t\"targetNumber\": \"02429525\",\n\t\"amount\": 23.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/transfer",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transfer"
+					]
+				},
+				"description": "Transfer money - fails - can't find target account"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/transfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "560c5a37-7c7b-4ced-bcd9-14b30999f7a1",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Couldn't find source account!\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sourceNumber\": \"02429585\",\n\t\"targetNumber\": \"02429523\",\n\t\"amount\": 23.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/transfer",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transfer"
+					]
+				},
+				"description": "transfer money - fails - can't find source account"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
