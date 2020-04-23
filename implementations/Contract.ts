@@ -4,6 +4,7 @@ import ICustomer from "../interface/ICustomer"
 import IAccount from "../interface/IAccount"
 import AccountDTO from "../DTO/AccountDTO"
 import MovementDTO from "../DTO/MovementDTO"
+import BankError from "../error/BankError"
 
 export default class Contract implements IContract {
 
@@ -32,7 +33,7 @@ export default class Contract implements IContract {
             })
 
         } else {
-            throw Error("Customer does not exist!")
+            throw new BankError("Customer does not exist!", 404)
         }
     }
 
@@ -44,11 +45,11 @@ export default class Contract implements IContract {
                 sourceAccount.transfer(amount, targetAccount)
                 return true
             } else {
-                throw Error("Couldn't find target account!")
+                throw new BankError("Couldn't find target account!", 404)
             }
 
         } else {
-            throw Error("Couldn't find source account!")
+            throw new BankError("Couldn't find source account!", 404)
         }
     }
 
