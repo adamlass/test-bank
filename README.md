@@ -11,7 +11,7 @@ ___
 
 ____ 
 
-### REST API
+### REST API 
 
 In this assignment we were to make a REST API that uses the contract. 
 
