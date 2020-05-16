@@ -1,3 +1,4 @@
+import cors from "cors"
 import express from 'express'
 import bodyParser from 'body-parser'
 import IAccount from "./interface/IAccount"
@@ -10,6 +11,8 @@ import IContract from './interface/IContract';
 import Contract from './implementations/Contract';
 
 const app = express()
+
+app.use(cors())
 
 app.use(bodyParser.json());
 
@@ -68,11 +71,13 @@ function handleError(e: any, res: any) {
 
 const transfer = (req: any, res: any) => {
     try {
-        const { sourceNumber, targetNumber, amount } = req.body
+        let { sourceNumber, targetNumber, amount } = req.body
+        amount = parseFloat(amount)
 
         const status = contract.transfer(sourceNumber, targetNumber, amount)
 
         res.send(status)
+
 
     } catch (e) {
         handleError(e, res)
