@@ -117,10 +117,6 @@ describe("Tests", function () {
     })
 })
 
-function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 async function convertBalance(balId, driver) {
     let balance = await driver.findElement(By.id(balId)).getText()
     balance = balance.split(" ")[0].replace(".", "").replace(",", ".")
